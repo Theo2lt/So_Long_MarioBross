@@ -10,16 +10,56 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 } t_data;
 
+
+void ft_put_affiche_herbe(void	*mlx, void	*mlx_win ,int x, int y)
+{
+
+	static long int i;
+	i++;
+
+	t_data *herbe1;
+	t_data *herbe2;
+	t_data *herbe3;
+	t_data *herbe4;
+	t_data *herbeD;
+	t_data *herbeG;
+
+	int		img_width;
+	int		img_height;
+	
+	herbe1 = mlx_xpm_file_to_image(mlx,"sprite/Sheet-XPM-32PX/block/herbe1.xpm", &img_width, &img_height);
+	herbe2 = mlx_xpm_file_to_image(mlx, "sprite/Sheet-XPM-32PX/block/herbe2.xpm", &img_width, &img_height);
+	herbe3 = mlx_xpm_file_to_image(mlx, "sprite/Sheet-XPM-32PX/block/herbe3.xpm", &img_width, &img_height);
+	herbe4 = mlx_xpm_file_to_image(mlx, "sprite/Sheet-XPM-32PX/block/herbe4.xpm", &img_width, &img_height);
+	herbeD = mlx_xpm_file_to_image(mlx, "sprite/Sheet-XPM-32PX/block/herbeD.xpm", &img_width, &img_height);
+	herbeG = mlx_xpm_file_to_image(mlx, "sprite/Sheet-XPM-32PX/block/herbeG.xpm", &img_width, &img_height);
+
+	if(!mlx)
+		printf("mlx NULL\n");
+	if(!mlx_win)
+		printf("mlx_win NULL \n");
+	if(i == 1)
+		mlx_put_image_to_window(mlx, mlx_win, herbe1, x, y);
+	if(i == 2)
+		mlx_put_image_to_window(mlx, mlx_win, herbe2, x, y);
+	if(i == 3)
+		mlx_put_image_to_window(mlx, mlx_win, herbe3, x, y);
+	if(i == 4)
+		mlx_put_image_to_window(mlx, mlx_win, herbe4, x, y);
+	if(i == 4)
+		i = 0;
+}
+
+
+
 void ft_affichage(char **tab, t_map *data)
 {
 	void	*mlx;
 	void	*mlx_win;
-	t_data 	*img;
+
 	t_data 	*img2;
 	t_data 	*img3;
-	char	*relative_path = "sprite/blo.xpm";
-	char	*relative_path_fond = "sprite/wallpaper.xpm";
-	char	*relative_path_doors= "sprite/fort192(fond-transparent).xpm";
+	t_data	*terre;
 
 	int		img_width;
 	int		img_height;
@@ -27,31 +67,35 @@ void ft_affichage(char **tab, t_map *data)
 	int x;
 	int y;
 
-
-
 	mlx = mlx_init();
 
-	mlx_win = mlx_new_window(mlx, (data->size_x-1)*64, (data->size_y)*64, "CA MARCHE un peu!");
+	mlx_win = mlx_new_window(mlx, (data->size_x-1)*32, (data->size_y)*32, "CA MARCHE un peu!");
 
 
 
-	img2 = mlx_xpm_file_to_image(mlx, relative_path_fond, &img_width, &img_height);
-	mlx_put_image_to_window(mlx, mlx_win, img2, 0, (data->size_y)*64-img_height - 64);
+	img2 = mlx_xpm_file_to_image(mlx, "sprite/Sheet-XPM-32PX/fond506.xpm", &img_width, &img_height);
+	mlx_put_image_to_window(mlx, mlx_win, img2, 0, (data->size_y)*32-img_height - 32);
 
-	img3 = mlx_xpm_file_to_image(mlx, relative_path_doors, &img_width, &img_height);
+	//img3 = mlx_xpm_file_to_image(mlx, "sprite/fort192(fond-transparent).xpm", &img_width, &img_height);
+	
+	terre = mlx_xpm_file_to_image(mlx, "sprite/Sheet-XPM-32PX/block/terre1.xpm", &img_width, &img_height);
 
 	x = 0;
 	y = 0;
 
-	img = mlx_xpm_file_to_image(mlx, relative_path, &img_width, &img_height);
 	while(y < data->size_y)
 	{
 		while(x < data->size_x-1)
 		{
 			if(tab[y][x] == '1')
-				mlx_put_image_to_window(mlx, mlx_win, img, x*64, y*64);
-			if(tab[y][x] == 'P')
-				mlx_put_image_to_window(mlx, mlx_win, img3, x*64, y*64-128);
+			{	
+				if(y == 0 || tab[y-1][x] == '1')
+					mlx_put_image_to_window(mlx, mlx_win, terre, x*32, y*32);
+				else
+					ft_put_affiche_herbe(mlx, mlx_win, x*32, y*32);
+			}
+			//if(tab[y][x] == 'P')
+				//mlx_put_image_to_window(mlx, mlx_win, img3, x*32, y*32-64);
 			x++;
 		}
 		x = 0;

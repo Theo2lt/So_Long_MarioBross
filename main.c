@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	tab = ft_create_tab(argv[1]);
 	if(!tab)
 		return (0);
-	data = ft_lstnew(tab);
+	data = ft_lstnew_map(tab);
 	if(!ft_verif_map_forme(tab, data) || !ft_verif_map_mur_y(tab, data) || !ft_verif_map_mur_x(tab, data) || !ft_verif_item(tab,data))
 	{
 		tab = ft_free(tab);

@@ -25,9 +25,10 @@ typedef struct	t_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	struct t_data	*next;
 }	t_data;
 
-t_map	*ft_lstnew(char **tab);
+t_map	*ft_lstnew_map(char **tab);
 int     ft_verif_map_mur_y(char **tab,t_map *data);
 int     ft_verif_map_mur_x(char **tab,t_map *data);
 int     ft_verif_map_forme(char **tab,t_map *data);
@@ -42,5 +43,7 @@ int		ft_verif_name_map(char *name);
 int		ft_verif_arg(int argc);
 void ft_affichage(char **tab, t_map *data);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+char    *ft_strdup(char *s1);
+void ft_put_affiche_herbe(void	*mlx, void	*mlx_win ,int x, int y);
 
 #endif
