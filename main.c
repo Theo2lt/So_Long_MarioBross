@@ -13,13 +13,31 @@ int main(int argc, char **argv)
 	if(!tab)
 		return (0);
 	data = ft_lstnew_map(tab);
+	
 	if(!ft_verif_map_forme(tab, data) || !ft_verif_map_mur_y(tab, data) || !ft_verif_map_mur_x(tab, data) || !ft_verif_item(tab,data))
 	{
 		tab = ft_free(tab);
 		free(data);
 		return (0);
 	}
+	ft_change_block(tab, data);
+
+
 	ft_affichage(tab,data);
+		int x = 0;
+		int y = 0;
+
+		while(tab[y])
+		{
+			while(tab[y][x])
+			{
+				printf("%c",tab[y][x]);
+				x++;
+			}
+			x = 0;
+			y++;
+		}
+
 	tab = ft_free(tab);
 	free(data);
 }

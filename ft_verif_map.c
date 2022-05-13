@@ -25,7 +25,7 @@ int ft_verif_map_forme(char **tab, t_map   *data)
 	}
 	while (y != data->size_y)
 	{
-		if (ft_strlen(tab[y]) - 1 != data->size_x - 1 )
+		if (ft_strlen(tab[y]) - 1 != data->size_x )
 		{
 			write(2, "Error\n", 7);
 			write(2,"MAP NON RECTANGLE\n",19);
@@ -44,7 +44,7 @@ int ft_verif_map_mur_y(char **tab, t_map   *data)
 	y = 0;
 	while (y != data->size_y)
 	{
-		if ((tab[y][0] != '1' && tab[y][0] != '\n') || (tab[y][data->size_x - 2] != '1' && tab[y][data->size_x - 2] != '\n'))
+		if ((tab[y][0] != '1' && tab[y][0] != '\n') || (tab[y][data->size_x - 1] != '1'))
 		{
 			write(2, "Error\n", 7);
 			write(2,"MAP NON CONFORME AXE Y\n",23);
@@ -60,7 +60,7 @@ int ft_verif_map_mur_x(char **tab, t_map   *data)
 	int x;
 
 	x = 0;
-	while (x != data->size_x - 2)
+	while (x != data->size_x - 1)
 	{
 		if ((tab[0][x] != '1' && tab[0][x] != '\n') || (tab[data->size_y - 1][x] != '1' && tab[data->size_y - 1][x] != '\n'))
 		{

@@ -1,5 +1,7 @@
 #include "so_long.h"
 
+
+
 char	**ft_create_tab(char *name_map)
 {
 	int		fd;
@@ -35,7 +37,12 @@ char	**ft_create_tab(char *name_map)
 	fd = open(name_map,O_RDONLY);
 	str = "";
 	while(len != i)
-		tab[i++] = get_next_line(fd);
+	{
+		tab[i] = get_next_line(fd);
+		if(tab[i])
+			tab[i][ft_strlen(tab[i])] = '\0';
+		i++;
+	}
 	close(fd);
 	return (tab);
 }

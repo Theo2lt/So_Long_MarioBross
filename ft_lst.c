@@ -11,7 +11,7 @@ t_map	*ft_lstnew_map(char **tab)
 	if (!new)
 		return (NULL);
 
-	new->size_x = ft_strlen(tab[0]);
+	new->size_x = ft_strlen(tab[0])-1;
 	new->size_y = ft_tablen(tab);
 	new->nbr_C  = 0;
 	new->nbr_E  = 0;
@@ -21,38 +21,47 @@ t_map	*ft_lstnew_map(char **tab)
 }
 
 // creer un nouveau node
-t_data	*ft_lstnew(void	*mlx, void	*mlx_win ,char	*PATH)
+t_data	*ft_lstnew(void	*mlx, void	*mlx_win ,char	*path)
 {
 	t_data	*new;
 	int		img_width;
 	int		img_height;
-
-	new = malloc(sizeof(t_data));
+	
+	new = mlx_xpm_file_to_image(mlx,path, &img_width, &img_height);
 	if (!new)
 		return (NULL);
-	new = mlx_xpm_file_to_image(mlx,"sprite/Sheet-XPM-32PX/block/herbe1.xpm", &img_width, &img_height);
 	new->next = NULL;
+	new->path = path;
+	new->img_width = img_width;
+	new->img_height = img_height;
 	return (new);
 }
 
 // parcour la list jusqu'au dernier element
 t_data	*ft_lstlast(t_data *lst)
 {
-	while (lst)
+	if (lst)
 	{
-		if (!lst->next)
-			return (lst);
-		lst = lst->next;
+		while (lst)
+		{
+			if (!lst->next)
+				return (lst);
+			lst = lst->next;
+		}
 	}
 	return (lst);
 }
 
 // ajout la node au dernier element de la liste
-void	ft_lstadd_back(t_data **alst, t_data *new)
+void	ft_lstadd_back(t_data *alst, t_data *new)
 {
 	t_data	*tmp;
-
-	tmp = ft_lstlast(*alst);
+	if(!alst)
+	{
+		alst = new;
+		return;
+	}
+	tmp = ft_lstlast(alst);
 	tmp->next = new;
 }
 
@@ -80,4 +89,15 @@ int	ft_lstsize(t_data *lst)
 		i++;
 	}
 	return (i);
+}
+
+t_data	*ft_lst_cache_cache(t_data *lst, char *path)
+{
+	while (lst)
+	{
+		if(lst->path == path)
+			return(lst);
+		lst = lst->next;
+	}
+	return (NULL);
 }
