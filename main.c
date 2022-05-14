@@ -24,6 +24,7 @@ int main(int argc, char **argv)
 
 
 	ft_affichage(tab,data);
+	/*
 		int x = 0;
 		int y = 0;
 
@@ -37,7 +38,7 @@ int main(int argc, char **argv)
 			x = 0;
 			y++;
 		}
-
+	*/
 	tab = ft_free(tab);
 	free(data);
 }

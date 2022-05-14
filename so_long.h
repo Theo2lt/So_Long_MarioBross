@@ -7,6 +7,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <fcntl.h>
+# include "/usr/include/X11/X.h"
 
 
 typedef struct t_map
@@ -18,6 +19,11 @@ typedef struct t_map
 	int	nbr_P;
 }	t_map;
 
+typedef struct t_win
+{
+	void *mlx;
+	void *mlx_win;
+}	t_win;
 
 typedef struct	t_data {
 	void	*img;

@@ -63,6 +63,66 @@ t_data	*ft_return_terre_img(t_data *imgs,char **tab, int x, int y)
 
 }
 
+int quit_game(int keycode, t_win *game)
+{
+	if (keycode == 65307)
+	{
+		printf("QUIT\n");
+		mlx_destroy_window(game->mlx, game->mlx_win);
+	}
+	return (0);
+}
+
+t_win *ft_quite(void *mlx, void *mlx_win)
+{
+	t_win new;
+
+	new.mlx = mlx;
+	new.mlx_win = mlx_win;
+
+	(void)new;
+	return (NULL);
+}
+
+int nullfunc(t_win *new)
+{
+	(void)new;
+	return 0;
+}
+
+
+void	ft_put_background_img(t_map *data, t_data *imgs, void	*mlx,void	*mlx_win)
+{
+	t_data	*img_put;
+	int y;
+	int x;
+
+	x = 0;
+	img_put = ft_lst_cache_cache(imgs, "sprite/Sheet-XPM-32PX/fond506.xpm");
+	while(x < data->size_x*32)
+	{
+		mlx_put_image_to_window(mlx, mlx_win, img_put, x, (data->size_y*32)-img_put->img_height-32);
+		x += img_put->img_width;
+	}
+	x = 0;
+	y = (data->size_y*32)-(img_put->img_height*2);
+	img_put = ft_lst_cache_cache(imgs, "sprite/Sheet-XPM-32PX/fond506H.xpm");
+	while(y > 0)
+	{
+		while(x < data->size_x*32)
+		{
+			mlx_put_image_to_window(mlx, mlx_win, img_put, x , y-32);
+			x += img_put->img_width;
+		}
+		y -= img_put->img_height;
+	}
+	x = 0;
+	while (y < 0 && x < data->size_x*32)
+	{
+		mlx_put_image_to_window(mlx, mlx_win, img_put, x, 0);
+		x += img_put->img_width;
+	}
+}
 
 void ft_affichage(char **tab, t_map *data)
 {
@@ -70,7 +130,7 @@ void ft_affichage(char **tab, t_map *data)
 	void	*mlx_win;
 
 	t_data 	*imgs;
-	t_data	*img_put;
+	
 
 	int x;
 	int y;
@@ -78,6 +138,13 @@ void ft_affichage(char **tab, t_map *data)
 	mlx = mlx_init();
 
 	mlx_win = mlx_new_window(mlx, (data->size_x)*32, (data->size_y)*32, "CA MARCHE un peu!");
+
+	/// POUR QUITER //
+	t_win new;
+
+	new.mlx = mlx;
+	new.mlx_win = mlx_win;
+	/////////////////
 
 	imgs = ft_lstnew(mlx, mlx_win , "sprite/Sheet-XPM-32PX/fond506.xpm");
 	ft_lstadd_back(imgs, ft_lstnew(mlx, mlx_win , "sprite/Sheet-XPM-32PX/fond506H.xpm"));
@@ -95,17 +162,12 @@ void ft_affichage(char **tab, t_map *data)
 	ft_lstadd_back(imgs, ft_lstnew(mlx, mlx_win , "sprite/Sheet-XPM-32PX/block/terreG.xpm"));
 	ft_lstadd_back(imgs, ft_lstnew(mlx, mlx_win , "sprite/Sheet-XPM-32PX/block/blockP1.xpm"));
 	ft_lstadd_back(imgs, ft_lstnew(mlx, mlx_win , "sprite/Sheet-XPM-32PX/block/blockB.xpm"));
-	
+
 	// A FINIR //
+	ft_put_background_img(data, imgs, mlx,mlx_win);
 	
-	img_put = ft_lst_cache_cache(imgs, "sprite/Sheet-XPM-32PX/fond506.xpm");
-	mlx_put_image_to_window(mlx, mlx_win, img_put, 0, (data->size_y*32)-img_put->img_height-32);
-	mlx_put_image_to_window(mlx, mlx_win, img_put, img_put->img_width, (data->size_y*32)-img_put->img_height-32);
-	
-	img_put = ft_lst_cache_cache(imgs, "sprite/Sheet-XPM-32PX/fond506H.xpm");
-	mlx_put_image_to_window(mlx, mlx_win, img_put, 0, (data->size_y*32)-(img_put->img_height*2)-32);
-	mlx_put_image_to_window(mlx, mlx_win, img_put, img_put->img_width, (data->size_y*32)-(img_put->img_height*2)-32);
 	///////////////
+	
 	
 	x = 0;
 	y = 0;
@@ -143,6 +205,8 @@ void ft_affichage(char **tab, t_map *data)
 	//free(img);
 	//free(img2);
 
+	mlx_hook(mlx_win, KeyPress, KeyPressMask, quit_game, &new);
+	mlx_loop_hook(mlx, nullfunc, &new);
 	mlx_loop(mlx);
 
 }
