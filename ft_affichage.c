@@ -1,15 +1,44 @@
 #include "so_long.h"
 #include "minilibx-linux/mlx.h"
 
-/*
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+unsigned int    get_color_pixel(t_data *all, void *img, int y, int x)
 {
-	char	*dst;
+    char    *src;
+    int        color;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+    all->addr = mlx_get_data_addr(img, &all->bits_per_pixel,
+            &all->line_length, &all->endian);
+    src = all->addr + (y * all->line_length + x * (all->bits_per_pixel / 8));
+    color = *(unsigned int *)src;
+    return (color);
 }
-*/
+
+void    my_mlx_pixel_put(t_data *all, int x, int y, int color)
+{
+    char    *dst;
+
+    dst = all->addr + (y * all->line_length + x * (all->bits_per_pixel / 8));
+    *(unsigned int *)dst = color;
+}
+
+void    put_pixel(t_data *all, void *img, int x, int y)
+{
+    int    i;
+    int    j;
+
+    i = -1;
+    while (++i < all->img_height)
+    {
+        j = -1;
+        while (++j < all->img_width)
+        {
+            all->color = get_color_pixel(all, img, i, j);
+            if (!(all->color == (0xFF << 24)))
+                my_mlx_pixel_put(all, x + j, y + i, all->color);
+        }
+    }
+}
+
 
 t_data	*ft_return_herbe_img(t_data *imgs,char **tab, int x, int y)
 {

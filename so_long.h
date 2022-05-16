@@ -34,6 +34,7 @@ typedef struct	t_data {
 	char 	*path;
 	int		img_width;
 	int		img_height;
+	long int	color;
 	struct t_data	*next;
 }	t_data;
 
