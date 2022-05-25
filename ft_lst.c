@@ -19,17 +19,18 @@ t_map	*ft_lstnew_map(char **tab)
 
 	return (new);
 }
-
+/*
 // creer un nouveau node
-t_data	*ft_lstnew(void	*mlx, void	*mlx_win ,char	*path)
+t_data	*ft_lstnew(void	*mlx ,char	*path)
 {
 	t_data	*new;
 	int		img_width;
 	int		img_height;
 	
-	new = mlx_xpm_file_to_image(mlx,path, &img_width, &img_height);
+	//new = malloc(sizeof(t_data));
 	if (!new)
 		return (NULL);
+	new = mlx_xpm_file_to_image(mlx,path, &img_width, &img_height);
 	new->next = NULL;
 	new->path = path;
 	new->img_width = img_width;
@@ -101,3 +102,4 @@ t_data	*ft_lst_cache_cache(t_data *lst, char *path)
 	}
 	return (NULL);
 }
+*/
