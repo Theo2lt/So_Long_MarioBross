@@ -10,7 +10,6 @@
 # include "/usr/include/X11/X.h"
 #include "minilibx-linux/mlx.h"
 
-struct t_data;
 
 typedef struct t_map
 {
@@ -21,23 +20,20 @@ typedef struct t_map
 	int	nbr_P;
 }	t_map;
 
-typedef struct	t_rendu {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		img_width;
-	int		img_height;
-}				t_rendu;
-
 typedef struct t_win
 {
 	void *mlx;
 	void *mlx_win;
 } 				t_win;
 
-typedef	struct t_sprite
+typedef struct t_perso
+{
+	int position_y;
+	int position_x;
+	int vie;
+}			t_perso;
+
+typedef	struct t_img
 {
 	void	*img;
 	char	*path;
@@ -47,33 +43,39 @@ typedef	struct t_sprite
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_sprite;
+}				t_img;
 
 
 typedef struct t_data
 {
 	struct	t_win 		*win;
-	struct	t_rendu 	*rendu;
-	struct	t_sprite	*piece1;
-	struct	t_sprite	*piece2;
-	struct	t_sprite	*piece3;
-	struct	t_sprite	*piece4;
-	struct	t_sprite	*fond506;
-	struct	t_sprite	*fond506H;
-	struct  t_sprite    *herbe1;
-	struct  t_sprite    *herbe2;
-	struct  t_sprite    *herbe3;
-	struct  t_sprite    *herbe4;
-	struct  t_sprite    *herbeD;
-	struct  t_sprite    *herbeG;
-	struct  t_sprite    *terre1;
-	struct  t_sprite    *terre2;
-	struct  t_sprite    *terre3;
-	struct  t_sprite    *terre4;
-	struct  t_sprite    *terreD;
-	struct  t_sprite    *terreG;
-	struct  t_sprite    *blockP1;
-	struct  t_sprite    *blockB;
+	struct	t_img 	*rendu;
+	struct  t_img		*rendu_mur;
+	struct  t_perso		*perso;
+	struct	t_img	*piece1;
+	struct	t_img	*piece2;
+	struct	t_img	*piece3;
+	struct	t_img	*piece4;
+	struct	t_img	*piecetmp;
+	struct	t_img	*fond506;
+	struct	t_img	*fond506H;
+	struct  t_img    *herbe1;
+	struct  t_img    *herbe2;
+	struct  t_img    *herbe3;
+	struct  t_img    *herbe4;
+	struct  t_img    *herbeD;
+	struct  t_img    *herbeG;
+	struct  t_img    *terre1;
+	struct  t_img    *terre2;
+	struct  t_img    *terre3;
+	struct  t_img    *terre4;
+	struct  t_img    *terreD;
+	struct  t_img    *terreG;
+	struct  t_img    *blockP1;
+	struct  t_img    *blockB;
+	struct  t_img    *mario;
+	struct	t_map		*map;
+	char		**tab;
 }				t_data;
 
 
@@ -82,7 +84,7 @@ t_map	*ft_lstnew_map(char **tab);
 int     ft_verif_map_mur_y(char **tab,t_map *data);
 int     ft_verif_map_mur_x(char **tab,t_map *data);
 int     ft_verif_map_forme(char **tab,t_map *data);
-int     ft_verif_item(char **tab,t_map   *data);
+int     ft_verif_item(char **tab,t_map *map);
 int     ft_tablen(char **tab);
 char	*get_next_line(int fd);
 int		ft_strlen(char *str);
@@ -91,16 +93,29 @@ char	**ft_free(char **tab);
 char	**ft_create_tab(char *name_map);
 int		ft_verif_name_map(char *name);
 int		ft_verif_arg(int argc);
-int 	ft_affichage(char **tab, t_map *data);
+int 	ft_affichage(t_data *data);
 char    *ft_strdup(char *s1);
 void 	ft_select_herbe(void	*mlx, void	*mlx_win ,int x, int y);
 void 	ft_change_block(char **tab, t_map *data);
 void 	ft_put_background_img(t_map *map, t_data *data);
-void	my_mlx_pixel_put(t_rendu *rendu, int y, int x, int color);
-unsigned int   	 get_color_pixel(t_sprite *img, int y, int x);
-void	my_put(t_data *data,t_sprite *img,int x,int y);
-t_sprite *ft_new_sprite(t_data *data, char *path);
+void	my_mlx_pixel_put(t_img *rendu, int y, int x, int color);
+unsigned int   	 get_color_pixel(t_img *img, int y, int x);
+t_img *ft_new_sprite(t_data *data, char *path);
 void ft_init_all_sprite(t_data *data);
+t_data *ft_init_affichage(char **tab, t_map *map);
+void	my_mlx_pixel_put(t_img *rendu, int y, int x, int color);
+unsigned int    get_color_pixel(t_img *img, int y, int x);
+void	my_put(t_img *rendu,t_img *img,int x,int y);
+void ft_clear_rendu(t_img *rendu);
+int ft_init_perso_position(char **tab, t_data *data);
+void ft_reset_img(char **tab, t_map *map, t_data *data);
+void ft_mouve_perso_haut(int keycode ,char **tab, t_map *map, t_data *data);
+void ft_mouve_perso_bas(int keycode ,char **tab, t_map *map, t_data *data);
+void ft_mouve_perso_droite(int keycode ,char **tab, t_map *map, t_data *data);
+void ft_mouve_perso_gauche(int keycode ,char **tab, t_map *map, t_data *data);
+void ft_change_tap_block(char **tab, t_map *map, t_data *data);
+void ft_init_rendu_mur(char **tab, t_map *map, t_data *data);
+void ft_reset_rendu(char **tab, t_map *map, t_data *data);
 
 #define PRINTS(x) printf("%s\n", x);
 #define PRINTP(x) printf("%p\n", x);

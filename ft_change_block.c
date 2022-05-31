@@ -14,16 +14,33 @@ void ft_change_block(char **tab, t_map *data)
         while(0 < y)
         {
             if(tab[y][x] == '1' && block == 0)
-               {
                     tab[y][x] = '2';
-                    if(tab[y-1][x] != '1')
-                        tab[y][x] = '3';
-               }
             else if(tab[y][x] != '1' )
                 block = 0;
             y--;
         }
 
         x++;
+    }
+}
+
+void ft_change_tap_block(char **tab, t_map *map, t_data *data)
+{   
+    
+    if(tab[data->perso->position_y-2][data->perso->position_x] == '0')
+    {
+        tab[data->perso->position_y-1][data->perso->position_x] = '3';
+        tab[data->perso->position_y-2][data->perso->position_x] = 'C';
+        map->nbr_C++;
+    }
+    else if(tab[data->perso->position_y-2][data->perso->position_x] == 'C')
+    {
+        tab[data->perso->position_y-1][data->perso->position_x] = '3';
+    }
+    else
+    {
+        tab[data->perso->position_y-1][data->perso->position_x] = 'P';
+		tab[data->perso->position_y][data->perso->position_x] = '0';
+	    data->perso->position_y -= 1;
     }
 }
