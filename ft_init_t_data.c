@@ -5,6 +5,14 @@ t_img *ft_new_sprite(t_data *data, char *path)
 	t_img *img;
     int h;
     int w; 
+
+	
+	img = malloc(sizeof(t_img));
+	if (img == NULL) 
+	{
+		printf("ERREUR : Malloc\n");
+		return (NULL);
+	}
 	img = mlx_xpm_file_to_image(data->win->mlx,path, &w, &h);
 	if (img == NULL) {
 		printf("ERREUR : xpm_file_to_image\n");
@@ -13,20 +21,18 @@ t_img *ft_new_sprite(t_data *data, char *path)
 	img->img_height = h;
 	img->img_width = w;
 	img->addr = mlx_get_data_addr(img, &img->bits_per_pixel, &img->line_length, &img->endian);
-	if (img->addr == NULL) {
-
+	if (img->addr == NULL) 
+	{
 		printf("ERREUR : mlx_get_data_addr\n");
 		return (NULL);
 	}
-	
-	
 	return (img);
 }
 
 void ft_init_all_sprite(t_data *data)
 {
-    data->piece1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/piece/piece1.xpm");
-    data->piece2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/piece/piece2.xpm");
+	data->piece1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/piece/piece1.xpm");
+	data->piece2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/piece/piece2.xpm");
     data->piece3 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/piece/piece3.xpm");
     data->piece4 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/piece/piece4.xpm");
     data->fond506 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/fond/fond506.xpm");
@@ -36,16 +42,21 @@ void ft_init_all_sprite(t_data *data)
 	data->herbe3 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/herbe3.xpm");
 	data->herbe4 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/herbe4.xpm");
 	data->herbeD = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/herbeD.xpm");
-	data->herbeG = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/herbeG.xpm");
-	data->terre1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terre1.xpm");
-	data->terre2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terre2.xpm");
+	data->herbeG = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/herbeG.xpm");	
+	data->terre1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terre1.xpm");	
+	data->terre2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terre2.xpm");	
 	data->terre3 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terre3.xpm");
 	data->terre4 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terre4.xpm");
-	data->terreD = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terreD.xpm");
-	data->terreG = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terreG.xpm");
-	data->blockP1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/blockP1.xpm");
+	data->terreD = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terreD.xpm");	
+	data->terreG = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/terreG.xpm");	
+	data->blockP1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/blockP1.xpm");	
+	data->blockP2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/blockP2.xpm");
+	data->blockP3 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/blockP3.xpm");
+	data->blockP4 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/blockP4.xpm");
 	data->blockB = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/blockB.xpm");
-	data->mario = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario.xpm");
+	data->mario = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario.xpm");	
+	data->SVH = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/SVH.xpm");	
+	data->SRH = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/SRH.xpm");
 }
 
 t_data *ft_init_affichage(char **tab, t_map *map)
@@ -83,6 +94,8 @@ t_data *ft_init_affichage(char **tab, t_map *map)
 	ft_init_all_sprite(data);
 	// INIT PERSO //
 	data->perso = malloc(sizeof(t_perso));
+	data->perso->vie = 1;
+	data->perso->deplacement = 0;
 	return(data);
 }
 

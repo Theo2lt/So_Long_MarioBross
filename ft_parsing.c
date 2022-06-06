@@ -1,7 +1,5 @@
 #include "so_long.h"
 
-
-
 char	**ft_create_tab(char *name_map)
 {
 	int		fd;

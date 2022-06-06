@@ -27,24 +27,5 @@ int main(int argc, char **argv)
 	data->map = map;
 	ft_init_perso_position(tab,data);
 	ft_affichage(data);
-	tab = ft_free(tab);
-	free(map);
+
 }
-
-/*
-
-	printf("---- MAP ---\n");
-		int x = 0;
-		int y = 0;
-
-		while(tab[y])
-		{
-			while(tab[y][x])
-			{
-				printf("%c",tab[y][x]);
-				x++;
-			}
-			x = 0;
-			y++;
-		}
-*/

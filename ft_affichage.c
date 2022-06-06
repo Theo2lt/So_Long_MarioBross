@@ -56,54 +56,33 @@ void	*ft_terre_img(t_data *data,char **tab, int x, int y)
 
 int ft_intput_game(int keycode, t_data *data)
 {
-	static long int i;
 	if (keycode == 65307)
 	{
 		printf("QUIT\n");
-		//mlx_destroy_window(data->win->mlx, data->win->mlx);
+		mlx_loop_end(data->win->mlx);
+
 	}
 	else if(keycode == 119)
 	{	
 		ft_mouve_perso_haut(keycode ,data->tab, data->map, data);
-		i++;
+		data->perso->deplacement++;
 	}
 	else if (keycode == 115)
 	{
 		ft_mouve_perso_bas(keycode ,data->tab, data->map, data);
-		i++;
+		data->perso->deplacement++;
 	}
 	else if (keycode == 97)
 	{
 		ft_mouve_perso_gauche(keycode ,data->tab, data->map, data);
-		i++;
+		data->perso->deplacement++;
 	}
 	else if (keycode == 100)
 	{
 		ft_mouve_perso_droite(keycode ,data->tab, data->map, data);
-		i++;
+		data->perso->deplacement++;
 	}
 	ft_reset_rendu(data->tab, data->map, data);
-	
-	//printf("tab[%d][%d]\n", data->perso->position_y, data->perso->position_x);
-	printf("Nombre de coup : %ld\n",i);
-	//printf("Keycode : %d\n",keycode);
-
-	//printf("---- MAP ---\n");
-	/*
-	int x = 0;
-	int y = 0;
-	while(data->tab[y])
-	{
-		while(data->tab[y][x])
-		{
-			printf("%c",data->tab[y][x]);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	*/
-	//printf("Nombre de piece : %d\n", data->map->nbr_C);
 	return (0);
 }
 
@@ -118,27 +97,31 @@ int nullfunc(t_data *data)
 	if(sleep == 0)
 	{
 		data->piecetmp = data->piece1;
+		data->blockPtmp = data->blockP1;
 		ft_reset_rendu(data->tab, data->map, data);
 	}
 
-	if(sleep == 300000)
+	if(sleep == 200000)
 	{
 		data->piecetmp = data->piece2;
+		data->blockPtmp = data->blockP2;
 		ft_reset_rendu(data->tab, data->map, data);
-		
 	}	
-	if(sleep == 600000)
+	if(sleep == 400000)
 	{
 		data->piecetmp = data->piece3;
+		data->blockPtmp = data->blockP3;
 		ft_reset_rendu(data->tab, data->map, data);
 	}
-	if(sleep == 900000)
+	if(sleep == 600000)
 	{
 		data->piecetmp = data->piece4;
+		data->blockPtmp = data->blockP4;
 		ft_reset_rendu(data->tab, data->map, data);
 		sleep = -time_sleep;
 	}
 	mlx_put_image_to_window(data->win->mlx, data->win->mlx_win, data->rendu->img, 0, 0);
+	ft_my_mlx_string_put(data);
 	usleep(time_sleep);
 	sleep+= time_sleep;
 
@@ -179,6 +162,31 @@ void	ft_put_background_img(t_map *map, t_data *data)
 }
 */
 
+void 	ft_put_background_img(t_map *map, t_data *data)
+{
+	int y;
+	int x;
+
+	y = 0;
+	x = 0;
+
+	
+	while (x < map->size_x*32)
+	{
+		my_put(data->rendu_mur, data->fond506, x, map->size_y*32-data->fond506->img_height);
+		y = map->size_y*32-(2*data->fond506->img_height);
+		while (y > -data->fond506H->img_height)
+		{
+			my_put(data->rendu_mur, data->fond506H, x, y);
+			y += -data->fond506H->img_height;
+		}
+		x += data->fond506->img_height;
+	}
+	
+
+
+}
+
 
 
 
@@ -187,8 +195,7 @@ void ft_init_rendu_mur(char **tab, t_map *map, t_data *data)
 	int x;
 	int y;
 	
-	//ft_put_background_img(map, data);
-	ft_clear_rendu(data->rendu_mur);
+	ft_put_background_img(map, data);
 
 	x = 0;
 	y = 0; 
@@ -215,7 +222,6 @@ void ft_reset_rendu(char **tab, t_map *map, t_data *data)
 	int x;
 	int y;
 	
-	//ft_put_background_img(map, data);
 	my_put(data->rendu, data->rendu_mur, 0, 0);
 	x = 0;
 	y = 0; 
@@ -224,28 +230,35 @@ void ft_reset_rendu(char **tab, t_map *map, t_data *data)
 		while(x < map->size_x)
 		{
 			if(tab[y][x] == '2')
-		   		my_put(data->rendu, data->blockP1, x*32, y*32);
+		   		my_put(data->rendu, data->blockPtmp, x*32, y*32);
 			if(tab[y][x] == '3')
 				my_put(data->rendu, data->blockB, x*32, y*32);
 			if(tab[y][x] == 'C')
 				my_put(data->rendu, data->piecetmp, x*32, y*32);
 			if(tab[y][x] == 'P')
 				my_put(data->rendu, data->mario, x*32, y*32);
+			if(tab[y][x] == 'E')
+			{	
+				if(data->map->nbr_C == 0)
+					my_put(data->rendu, data->SVH, x*32, y*32);
+				else
+					my_put(data->rendu, data->SRH, x*32, y*32);
+			}
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	mlx_put_image_to_window(data->win->mlx, data->win->mlx_win, data->rendu->img, 0, 0);
 
 }
 
 int ft_affichage(t_data *data)
-{	
+{
+	mlx_do_key_autorepeatoff(data->win->mlx);	
 	ft_init_rendu_mur(data->tab, data->map, data);
 	mlx_hook(data->win->mlx_win, KeyPress, KeyPressMask, ft_intput_game, data);
 	mlx_loop_hook(data->win->mlx, nullfunc,  data);
-	printf("LAAAA\n");
 	mlx_loop(data->win->mlx);
-	return(0);
+	ft_exit(data);
+	return (0);
 }
