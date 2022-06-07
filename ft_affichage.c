@@ -75,17 +75,104 @@ int ft_intput_game(int keycode, t_data *data)
 	else if (keycode == 97)
 	{
 		ft_mouve_perso_gauche(keycode ,data->tab, data->map, data);
+		data->perso->direction = -1;
 		data->perso->deplacement++;
 	}
 	else if (keycode == 100)
 	{
 		ft_mouve_perso_droite(keycode ,data->tab, data->map, data);
+		data->perso->direction = 1;
 		data->perso->deplacement++;
 	}
+	ft_mario_img(data,-1);
 	ft_reset_rendu(data->tab, data->map, data);
 	return (0);
 }
 
+void ft_mario_img_sol(t_data *data, long int sleep)
+{
+	static int i;
+	if(data->perso->direction == 1)
+	{	
+		if(sleep != -1)
+			data->mariotmp = data->mario_SD1;
+		else if(i == 0)
+			data->mariotmp = data->mario_SD1;
+		else if(i == 1)
+			data->mariotmp = data->mario_SD2;
+		else if(i == 2)
+			data->mariotmp = data->mario_SD3;
+		else if(i == 3)
+			data->mariotmp = data->mario_SD4;
+	}
+	else
+	{
+		if(sleep != -1)
+			data->mariotmp = data->mario_SG1;
+		else if(i == 0)
+			data->mariotmp = data->mario_SG1;
+		else if(i == 1)
+			data->mariotmp = data->mario_SG2;
+		else if(i == 2)
+			data->mariotmp = data->mario_SG3;
+		else if(i == 3)
+			data->mariotmp = data->mario_SG4;
+	}
+	if(i == 3)
+		i = -1;
+	i++;
+}
+
+void ft_mario_img_haut(t_data *data,long int sleep)
+{
+	if(data->perso->direction == 1)
+	{
+		if(sleep == 0)
+			data->mariotmp = data->mario_HD1;
+		else if(sleep == 200000)
+			data->mariotmp = data->mario_HD2;
+		else if(sleep == 400000)
+			data->mariotmp = data->mario_HD3;
+		else if(sleep == 600000)
+			data->mariotmp = data->mario_HD2;
+	}
+	else
+	{
+		if(sleep == 0)
+			data->mariotmp = data->mario_HG1;
+		else if(sleep == 200000)
+			data->mariotmp = data->mario_HG2;
+		else if(sleep == 400000)
+			data->mariotmp = data->mario_HG3;
+		else if(sleep == 600000)
+			data->mariotmp = data->mario_HG2;
+	}
+}
+
+
+void ft_mario_img(t_data *data,long int sleep)
+{
+	int y;
+	int x;
+
+	y = data->perso->position_y;
+	x = data->perso->position_x;
+	
+	if(data->perso->deplacement == 0 || data->tab[y+1][x] == 'E')
+	{
+		if(sleep == 0)
+			data->mariotmp = data->mario_init1;
+		else if(sleep == 200000)
+			data->mariotmp = data->mario_init2;
+	}
+	else
+	{
+		if(data->tab[y+1][x] == '1' ||  data->tab[y+1][x] == '2' || data->tab[y+1][x] == '3')
+			ft_mario_img_sol(data,sleep);
+		else
+			ft_mario_img_haut(data,sleep);
+	}
+}
 
 int nullfunc(t_data *data)
 {
@@ -93,12 +180,13 @@ int nullfunc(t_data *data)
 	static long int sleep;
 	time_sleep = 5000;
 
-
+	ft_mario_img(data,sleep);
 	if(sleep == 0)
-	{
+	{	
 		data->piecetmp = data->piece1;
 		data->blockPtmp = data->blockP1;
 		ft_reset_rendu(data->tab, data->map, data);
+
 	}
 
 	if(sleep == 200000)
@@ -124,8 +212,6 @@ int nullfunc(t_data *data)
 	ft_my_mlx_string_put(data);
 	usleep(time_sleep);
 	sleep+= time_sleep;
-
-	//printf("sleep : %ld\n",sleep);
 	return 0;
 }
 
@@ -182,8 +268,6 @@ void 	ft_put_background_img(t_map *map, t_data *data)
 		}
 		x += data->fond506->img_height;
 	}
-	
-
 
 }
 
@@ -236,7 +320,7 @@ void ft_reset_rendu(char **tab, t_map *map, t_data *data)
 			if(tab[y][x] == 'C')
 				my_put(data->rendu, data->piecetmp, x*32, y*32);
 			if(tab[y][x] == 'P')
-				my_put(data->rendu, data->mario, x*32, y*32);
+				my_put(data->rendu, data->mariotmp, x*32, y*32);
 			if(tab[y][x] == 'E')
 			{	
 				if(data->map->nbr_C == 0)

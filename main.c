@@ -23,9 +23,13 @@ int main(int argc, char **argv)
 	}
 	ft_change_block(tab, map);
 	data = ft_init_affichage(tab,map);
-	data->tab = tab;
-	data->map = map;
-	ft_init_perso_position(tab,data);
-	ft_affichage(data);
-
+	if(data == 0)
+		ft_exit(data);
+	else
+	{
+		data->tab = tab;
+		data->map = map;
+		ft_init_perso_position(tab,data);
+		ft_affichage(data);
+	}
 }

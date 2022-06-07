@@ -30,6 +30,7 @@ typedef struct t_perso
 {
 	int position_y;
 	int position_x;
+	int direction;
 	int deplacement;
 	int vie;
 }			t_perso;
@@ -78,14 +79,34 @@ typedef struct t_data
 	struct  t_img   *blockP4;
 	struct  t_img   *blockPtmp;
 	struct  t_img   *blockB;
-	struct  t_img   *mario;
 	struct  t_img   *SVH;
 	struct  t_img   *SRH;
-	struct	t_map		*map;
+	struct	t_img	*monstre;	
+	struct	t_img	*monstre2;
+	struct	t_img	*monstreR;
+	struct	t_img	*monstreR2;	
+
+	struct  t_img	*mariotmp;
+	struct	t_img	*mario_HD1;
+	struct	t_img	*mario_HD2;
+	struct	t_img	*mario_HD3;
+	struct	t_img	*mario_HG1;
+	struct	t_img	*mario_HG2;
+	struct	t_img	*mario_HG3;
+	struct	t_img	*mario_init1;
+	struct	t_img	*mario_init2;
+	struct	t_img	*mario_SD1;
+	struct	t_img	*mario_SD2;
+	struct	t_img	*mario_SD3;
+	struct	t_img	*mario_SD4;
+	struct	t_img	*mario_SG1;
+	struct	t_img	*mario_SG2;
+	struct	t_img	*mario_SG3;
+	struct	t_img	*mario_SG4;
+
+	struct	t_map	*map;	
 	char		**tab;
 }				t_data;
-
-
 
 t_map	*ft_lstnew_map(char **tab);
 int     ft_verif_map_mur_y(char **tab,t_map *data);
@@ -124,5 +145,11 @@ void ft_reset_rendu(char **tab, t_map *map, t_data *data);
 char	*ft_itoa(int nb);
 void 	ft_my_mlx_string_put(t_data *data);
 void ft_exit(t_data *data);
+void ft_free_data(t_data *data);
+void ft_free_affichage(t_data *data);
+void ft_free_img(t_img *img,t_data *data);
+void ft_mario_img_sol(t_data *data,long int sleep);
+void ft_mario_img_haut(t_data *data,long int sleep);
+void ft_mario_img(t_data *data,long int sleep);
 
 #endif

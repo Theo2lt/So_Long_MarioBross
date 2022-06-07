@@ -13,14 +13,14 @@ t_img *ft_new_sprite(t_data *data, char *path)
 		printf("ERREUR : Malloc\n");
 		return (NULL);
 	}
-	img = mlx_xpm_file_to_image(data->win->mlx,path, &w, &h);
+	img->img = mlx_xpm_file_to_image(data->win->mlx,path, &w, &h);
 	if (img == NULL) {
 		printf("ERREUR : xpm_file_to_image\n");
 		return (NULL);
 	}
 	img->img_height = h;
 	img->img_width = w;
-	img->addr = mlx_get_data_addr(img, &img->bits_per_pixel, &img->line_length, &img->endian);
+	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
 	if (img->addr == NULL) 
 	{
 		printf("ERREUR : mlx_get_data_addr\n");
@@ -54,9 +54,32 @@ void ft_init_all_sprite(t_data *data)
 	data->blockP3 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/blockP3.xpm");
 	data->blockP4 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/blockP4.xpm");
 	data->blockB = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/blockB.xpm");
-	data->mario = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario.xpm");	
 	data->SVH = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/SVH.xpm");	
 	data->SRH = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/block/SRH.xpm");
+	data->monstre = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/monstre.xpm");
+	data->monstre2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/monstre2.xpm");
+	data->monstreR = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/monstreR.xpm");
+	data->monstreR2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/monstreR2.xpm");
+
+
+
+	data->mario_HD1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_HD1.xpm");
+	data->mario_HD2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_HD2.xpm");
+	data->mario_HD3 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_HD3.xpm");
+	data->mario_HG1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_HG1.xpm");
+	data->mario_HG2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_HG2.xpm");
+	data->mario_HG3 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_HG3.xpm");
+	data->mario_init1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_init1.xpm");
+	data->mario_init2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_init2.xpm");
+	data->mario_SD1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_SD1.xpm");
+	data->mario_SD2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_SD2.xpm");
+	data->mario_SD3 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_SD3.xpm");
+	data->mario_SD4 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_SD4.xpm");
+	data->mario_SG1 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_SG1.xpm");
+	data->mario_SG2 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_SG2.xpm");
+	data->mario_SG3 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_SG3.xpm");
+	data->mario_SG4 = ft_new_sprite(data,"sprite/Sheet-XPM-32PX-transparency/perso/mario_SG4.xpm");
+
 }
 
 t_data *ft_init_affichage(char **tab, t_map *map)
