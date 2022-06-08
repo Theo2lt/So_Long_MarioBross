@@ -65,25 +65,26 @@ int ft_intput_game(int keycode, t_data *data)
 	else if(keycode == 119)
 	{	
 		ft_mouve_perso_haut(keycode ,data->tab, data->map, data);
-		data->perso->deplacement++;
+		
 	}
 	else if (keycode == 115)
 	{
 		ft_mouve_perso_bas(keycode ,data->tab, data->map, data);
-		data->perso->deplacement++;
+		
 	}
 	else if (keycode == 97)
 	{
 		ft_mouve_perso_gauche(keycode ,data->tab, data->map, data);
 		data->perso->direction = -1;
-		data->perso->deplacement++;
+		
 	}
 	else if (keycode == 100)
 	{
 		ft_mouve_perso_droite(keycode ,data->tab, data->map, data);
 		data->perso->direction = 1;
-		data->perso->deplacement++;
+		
 	}
+	
 	ft_mario_img(data,-1);
 	ft_reset_rendu(data->tab, data->map, data);
 	return (0);
@@ -174,6 +175,29 @@ void ft_mario_img(t_data *data,long int sleep)
 	}
 }
 
+void ft_Piranha_img(t_data *data)
+{
+	static long int sleep;
+	
+	if(sleep == 0 || sleep == 10)
+		data->Piranhatmp = data->Piranha1;
+	if(sleep == 1|| sleep == 9)
+		data->Piranhatmp = data->Piranha2;
+	if(sleep == 2 || sleep == 8)
+		data->Piranhatmp = data->Piranha3;
+	if(sleep == 3 || sleep == 7)
+		data->Piranhatmp = data->Piranha4;
+	if(sleep == 4 || sleep == 6)
+		data->Piranhatmp = data->Piranha5;
+	if(sleep == 5)
+		data->Piranhatmp = data->Piranha6;
+	if(sleep == 12)
+		sleep = 0;
+	sleep += 1;
+}
+
+
+
 int nullfunc(t_data *data)
 {
 	long int time_sleep;
@@ -181,8 +205,10 @@ int nullfunc(t_data *data)
 	time_sleep = 5000;
 
 	ft_mario_img(data,sleep);
+	
 	if(sleep == 0)
 	{	
+		ft_Piranha_img(data);
 		data->piecetmp = data->piece1;
 		data->blockPtmp = data->blockP1;
 		ft_reset_rendu(data->tab, data->map, data);
@@ -197,6 +223,7 @@ int nullfunc(t_data *data)
 	}	
 	if(sleep == 400000)
 	{
+		ft_Piranha_img(data);
 		data->piecetmp = data->piece3;
 		data->blockPtmp = data->blockP3;
 		ft_reset_rendu(data->tab, data->map, data);
@@ -327,6 +354,11 @@ void ft_reset_rendu(char **tab, t_map *map, t_data *data)
 					my_put(data->rendu, data->SVH, x*32, y*32);
 				else
 					my_put(data->rendu, data->SRH, x*32, y*32);
+			}
+			if(tab[y][x] == 'M')
+			{
+				my_put(data->rendu, data->Piranhatmp, x*32, y*32);
+
 			}
 			x++;
 		}

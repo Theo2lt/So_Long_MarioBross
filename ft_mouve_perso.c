@@ -11,17 +11,20 @@ void ft_mouve_perso_haut(int keycode ,char **tab, t_map *map, t_data *data)
                 ft_change_tap_block(tab, map, data);  
             else
             {
+				if(tab[data->perso->position_y-1][data->perso->position_x] == 'M')
+					ft_exit(data);
 			    if(tab[data->perso->position_y-1][data->perso->position_x] == 'C')
 			    	map->nbr_C--;
 			    tab[data->perso->position_y-1][data->perso->position_x] = 'P';
 			    tab[data->perso->position_y][data->perso->position_x] = '0';
 			    data->perso->position_y -= 1;
+				
             }
+			data->perso->deplacement++;
 		}
 	}
 	
 }
-
 
 void ft_mouve_perso_bas(int keycode ,char **tab, t_map *map, t_data *data)
 {
@@ -39,10 +42,14 @@ void ft_mouve_perso_bas(int keycode ,char **tab, t_map *map, t_data *data)
 			{
 				if(tab[data->perso->position_y+1][data->perso->position_x] == 'C')
 					map->nbr_C--;
+				if(tab[data->perso->position_y+1][data->perso->position_x] == 'M')
+					ft_exit(data);
 				tab[data->perso->position_y+1][data->perso->position_x] = 'P';
 				tab[data->perso->position_y][data->perso->position_x] = '0';
 				data->perso->position_y += 1;
-			}		
+				data->perso->deplacement++;
+			}
+			
 		}
 	}
 	
@@ -57,10 +64,15 @@ void ft_mouve_perso_droite(int keycode ,char **tab, t_map *map, t_data *data)
 		{
 			if(tab[data->perso->position_y][data->perso->position_x+1] == 'C')
 				map->nbr_C--;
+			if(tab[data->perso->position_y][data->perso->position_x+1] == 'M')
+				ft_exit(data);
 			tab[data->perso->position_y][data->perso->position_x+1] = 'P';
 			tab[data->perso->position_y][data->perso->position_x] = '0';
 			data->perso->position_x += 1;
+			data->perso->deplacement++;
 		}
+		
+		
 	}
 	
 }
@@ -74,10 +86,14 @@ void ft_mouve_perso_gauche(int keycode ,char **tab, t_map *map, t_data *data)
 		{
 			if(tab[data->perso->position_y][data->perso->position_x-1] == 'C')
 				map->nbr_C--;
+			if(tab[data->perso->position_y][data->perso->position_x-1] == 'M')
+				ft_exit(data);
 			tab[data->perso->position_y][data->perso->position_x-1] = 'P';
 			tab[data->perso->position_y][data->perso->position_x] = '0';
 			data->perso->position_x -= 1;
+			data->perso->deplacement++;
 		}
+		
 	}
 	
 }

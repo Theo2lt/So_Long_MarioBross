@@ -27,8 +27,6 @@ int main(int argc, char **argv)
 		ft_exit(data);
 	else
 	{
-		data->tab = tab;
-		data->map = map;
 		ft_init_perso_position(tab,data);
 		ft_affichage(data);
 	}

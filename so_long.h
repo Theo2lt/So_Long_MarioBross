@@ -8,7 +8,7 @@
 # include <stddef.h>
 # include <fcntl.h>
 # include "/usr/include/X11/X.h"
-#include "minilibx-linux/mlx.h"
+# include "minilibx-linux/mlx.h"
 
 
 typedef struct t_map
@@ -81,10 +81,14 @@ typedef struct t_data
 	struct  t_img   *blockB;
 	struct  t_img   *SVH;
 	struct  t_img   *SRH;
-	struct	t_img	*monstre;	
-	struct	t_img	*monstre2;
-	struct	t_img	*monstreR;
-	struct	t_img	*monstreR2;	
+
+	struct	t_img	*Piranhatmp;
+	struct	t_img	*Piranha1;
+	struct	t_img	*Piranha2;
+	struct	t_img	*Piranha3;
+	struct	t_img	*Piranha4;
+	struct	t_img	*Piranha5;
+	struct	t_img	*Piranha6;
 
 	struct  t_img	*mariotmp;
 	struct	t_img	*mario_HD1;
@@ -127,7 +131,7 @@ void 	ft_change_block(char **tab, t_map *data);
 void 	ft_put_background_img(t_map *map, t_data *data);
 void	my_mlx_pixel_put(t_img *rendu, int y, int x, int color);
 unsigned int   	 get_color_pixel(t_img *img, int y, int x);
-t_img 			*ft_new_sprite(t_data *data, char *path);
+void ft_new_img_addr(t_data *data, char *path, t_img *img);
 void ft_init_all_sprite(t_data *data);
 t_data *ft_init_affichage(char **tab, t_map *map);
 void	my_mlx_pixel_put(t_img *rendu, int y, int x, int color);
@@ -151,5 +155,6 @@ void ft_free_img(t_img *img,t_data *data);
 void ft_mario_img_sol(t_data *data,long int sleep);
 void ft_mario_img_haut(t_data *data,long int sleep);
 void ft_mario_img(t_data *data,long int sleep);
+void ft_Piranha_img(t_data *data);
 
 #endif

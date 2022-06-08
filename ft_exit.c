@@ -1,9 +1,10 @@
 #include "so_long.h"
 void ft_free_img(t_img *img,t_data *data)
 {
-	if(img)
-	{
-		mlx_destroy_image(data->win->mlx, img->img);
+	if (img)
+	{	
+		if (img->img)
+			mlx_destroy_image(data->win->mlx, img->img);
 		free(img);
 	}
 }
@@ -37,11 +38,12 @@ void ft_free_affichage(t_data *data)
 	ft_free_img(data->SVH, data);
 	ft_free_img(data->SRH, data);
 
-	ft_free_img(data->monstre, data);
-	ft_free_img(data->monstre2, data);
-	ft_free_img(data->monstreR, data);
-	ft_free_img(data->monstreR2, data);
-
+	ft_free_img(data->Piranha1, data);
+	ft_free_img(data->Piranha2, data);
+	ft_free_img(data->Piranha3, data);
+	ft_free_img(data->Piranha4, data);
+	ft_free_img(data->Piranha5, data);	
+	ft_free_img(data->Piranha6, data);
 
 	ft_free_img(data->mario_HD1, data);
 	ft_free_img(data->mario_HD2, data);
@@ -80,7 +82,7 @@ void ft_free_data(t_data *data)
 		if(data->win)
 			free(data->win);
 		if(data->tab)
-			data->tab = ft_free(data->tab);
+			ft_free(data->tab);
 		if(data->map)
 			free(data->map);
 		if(data)
