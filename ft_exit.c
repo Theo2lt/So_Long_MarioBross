@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/10 15:17:39 by tliot             #+#    #+#             */
+/*   Updated: 2022/06/10 15:27:34 by tliot            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
-void ft_free_img(t_img *img,t_data *data)
+void	ft_free_img(t_img *img,t_data *data)
 {
 	if (img)
 	{	
@@ -10,7 +22,7 @@ void ft_free_img(t_img *img,t_data *data)
 }
 
 
-void ft_free_affichage(t_data *data)
+void	ft_free_affichage(t_data *data)
 {
 	ft_free_img(data->piece1, data);
 	ft_free_img(data->piece2, data);
@@ -42,7 +54,7 @@ void ft_free_affichage(t_data *data)
 	ft_free_img(data->Piranha2, data);
 	ft_free_img(data->Piranha3, data);
 	ft_free_img(data->Piranha4, data);
-	ft_free_img(data->Piranha5, data);	
+	ft_free_img(data->Piranha5, data);
 	ft_free_img(data->Piranha6, data);
 
 	ft_free_img(data->mario_HD1, data);
@@ -61,7 +73,7 @@ void ft_free_affichage(t_data *data)
 	ft_free_img(data->mario_SG2, data);
 	ft_free_img(data->mario_SG3, data);
 	ft_free_img(data->mario_SG4, data);
-	
+
 	mlx_destroy_image(data->win->mlx, data->rendu->img);
 	mlx_destroy_image(data->win->mlx, data->rendu_mur->img);
 	mlx_clear_window(data->win->mlx, data->win->mlx_win);
@@ -69,34 +81,35 @@ void ft_free_affichage(t_data *data)
 	mlx_destroy_display(data->win->mlx);
 }
 
-void ft_free_data(t_data *data)
+void	ft_free_data(t_data *data)
 {
-		if(data->win->mlx)
-			free(data->win->mlx);
-		if(data->perso)
-			free(data->perso);
-		if(data->rendu_mur)
-			free(data->rendu_mur);
-		if(data->rendu)
-			free(data->rendu);
-		if(data->win)
-			free(data->win);
-		if(data->tab)
-			ft_free(data->tab);
-		if(data->map)
-			free(data->map);
-		if(data)
-			free(data);		
+	if (data->win->mlx)
+		free(data->win->mlx);
+	if (data->perso)
+		free(data->perso);
+	if (data->rendu_mur)
+		free(data->rendu_mur);
+	if (data->rendu)
+		free(data->rendu);
+	if (data->win)
+		free(data->win);
+	if (data->tab)
+		ft_free(data->tab);
+	if (data->map)
+		free(data->map);
+	if (data->troupe_piranha)
+		ft_lst_clean_piranaha(data);
+	if (data)
+		free(data);
 
 }
 
-void ft_exit(t_data *data)
+void	ft_exit(t_data *data)
 {		
-		if(data)
-		{
-			ft_free_affichage(data);
-			ft_free_data(data);
-		}
-
-		exit(0);
+	if (data)
+	{
+		ft_free_affichage(data);
+		ft_free_data(data);
+	}
+	exit(0);
 }

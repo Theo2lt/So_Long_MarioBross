@@ -33,6 +33,7 @@ typedef struct t_perso
 	int direction;
 	int deplacement;
 	int vie;
+	struct	t_perso *next;
 }			t_perso;
 
 typedef	struct t_img
@@ -108,6 +109,8 @@ typedef struct t_data
 	struct	t_img	*mario_SG3;
 	struct	t_img	*mario_SG4;
 
+	struct t_perso	*troupe_piranha;
+
 	struct	t_map	*map;	
 	char		**tab;
 }				t_data;
@@ -156,5 +159,11 @@ void ft_mario_img_sol(t_data *data,long int sleep);
 void ft_mario_img_haut(t_data *data,long int sleep);
 void ft_mario_img(t_data *data,long int sleep);
 void ft_Piranha_img(t_data *data);
+
+t_perso	*ft_lstnew(int position_y, int position_x);
+t_perso	*ft_lstlast(t_perso *lst);
+void	ft_lstadd_back(t_data *data ,int position_y, int position_x);
+int ft_init_piranha_position(char **tab, t_data *data);
+void	ft_lst_clean_piranaha(t_data *data);
 
 #endif

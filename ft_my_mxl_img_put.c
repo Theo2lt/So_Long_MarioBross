@@ -4,10 +4,8 @@
 void	my_mlx_pixel_put(t_img *rendu, int y, int x, int color)
 {
 	char	*dst;
-	
-	//printf("1ADD : %d\n",x * rendu->line_length);
+
 	dst = rendu->addr + (x * rendu->line_length + y * (rendu->bits_per_pixel / 8));
-	//printf("laa\n");
 	if(dst)
 		*(unsigned int*)dst = color;
 	

@@ -23,7 +23,7 @@ int main(int argc, char **argv)
 	}
 	ft_change_block(tab, map);
 	data = ft_init_affichage(tab,map);
-	if(data == 0)
+	if(data == NULL)
 		ft_exit(data);
 	else
 	{

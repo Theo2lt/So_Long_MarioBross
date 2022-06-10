@@ -6,13 +6,13 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 13:28:10 by tliot             #+#    #+#             */
-/*   Updated: 2022/04/09 20:05:50 by tliot            ###   ########.fr       */
+/*   Updated: 2022/06/10 15:28:15 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int		ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
 	int	i;
 
