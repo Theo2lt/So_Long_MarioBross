@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 16:13:32 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/10 16:13:37 by tliot            ###   ########.fr       */
+/*   Updated: 2022/06/10 18:20:04 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,13 @@ t_map	*ft_lstnew_map(char **tab)
 	new = malloc(sizeof(t_map));
 	if (!new)
 		return (NULL);
-
 	new->size_x = ft_strlen(tab[0]) - 1;
 	new->size_y = ft_tablen(tab);
-	new->nbr_C = 0;
-	new->nbr_E = 0;
-	new->nbr_P = 0;
-
+	new->nbr_c = 0;
+	new->nbr_e = 0;
+	new->nbr_p = 0;
 	return (new);
 }
-
-
 
 t_perso	*ft_lstnew(int position_y, int position_x)
 {
@@ -62,7 +58,6 @@ void	ft_lstadd_back(t_data *data, int position_y, int position_x)
 
 	if (!data->troupe_piranha)
 		data->troupe_piranha = ft_lstnew(position_y, position_x);
-
 	else
 	{
 		last_elem = ft_lstlast(data->troupe_piranha);
@@ -81,4 +76,3 @@ void	ft_lst_clean_piranaha(t_data *data)
 		free(save_elem);
 	}
 }
-

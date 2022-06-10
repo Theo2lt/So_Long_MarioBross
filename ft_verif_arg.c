@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_verif_arg.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/10 17:46:19 by tliot             #+#    #+#             */
+/*   Updated: 2022/06/10 17:46:32 by tliot            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-int ft_verif_arg(int argc)
+int	ft_verif_arg(int argc)
 {
-	if(argc != 2)
+	if (argc != 2)
 	{
 		write(2, "Error\n", 7);
-		write(2,"ARG invalid\n",13);
-		return(0);
+		write(2, "ARG invalid\n", 13);
+		return (0);
 	}
-	return(1);
+	return (1);
 }

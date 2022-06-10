@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 16:25:07 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/10 16:40:59 by tliot            ###   ########.fr       */
+/*   Updated: 2022/06/10 18:19:08 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_mouve_perso_haut(int keycode, char **tab,
 					ft_exit(data);
 				if (tab[data->perso->position_y - 1][data->perso->position_x]
 					== 'C')
-					map->nbr_C--;
+					map->nbr_c--;
 				tab[data->perso->position_y - 1][data->perso->position_x] = 'P';
 				tab[data->perso->position_y][data->perso->position_x] = '0';
 				data->perso->position_y -= 1;
@@ -51,14 +51,14 @@ void	ft_mouve_perso_bas(int keycode, char **tab, t_map *map, t_data *data)
 		if (tab[data->perso->position_y + 1][data->perso->position_x]
 			== 'E')
 		{
-			if (data->map->nbr_C == 0)
+			if (data->map->nbr_c == 0)
 				ft_exit(data);
 		}
 		else
 		{
 			if (tab[data->perso->position_y + 1][data->perso->position_x]
 				== 'C')
-				map->nbr_C--;
+				map->nbr_c--;
 			if (tab[data->perso->position_y + 1][data->perso->position_x]
 				== 'M')
 				ft_exit(data);
@@ -72,7 +72,6 @@ void	ft_mouve_perso_bas(int keycode, char **tab, t_map *map, t_data *data)
 
 void	ft_mouve_perso_droite(int keycode, char **tab, t_map *map, t_data *data)
 {
-
 	if (keycode == 100)
 	{
 		if (tab[data->perso->position_y][data->perso->position_x + 1] != '1'
@@ -82,7 +81,7 @@ void	ft_mouve_perso_droite(int keycode, char **tab, t_map *map, t_data *data)
 		{
 			if (tab[data->perso->position_y][data->perso->position_x + 1]
 				== 'C')
-				map->nbr_C--;
+				map->nbr_c--;
 			if (tab[data->perso->position_y][data->perso->position_x + 1]
 				== 'M')
 				ft_exit(data);
@@ -105,7 +104,7 @@ void	ft_mouve_perso_gauche(int keycode, char **tab, t_map *map, t_data *data)
 		{
 			if (tab[data->perso->position_y][data->perso->position_x - 1]
 				== 'C')
-				map->nbr_C--;
+				map->nbr_c--;
 			if (tab[data->perso->position_y][data->perso->position_x - 1]
 				== 'M')
 				ft_exit(data);

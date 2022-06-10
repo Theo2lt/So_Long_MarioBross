@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 13:57:00 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/10 15:17:07 by tliot            ###   ########.fr       */
+/*   Updated: 2022/06/10 18:19:08 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_change_tap_block(char **tab, t_map *map, t_data *data)
 	{
 		tab[data->perso->position_y - 1][data->perso->position_x] = '3';
 		tab[data->perso->position_y - 2][data->perso->position_x] = 'C';
-		map->nbr_C++;
+		map->nbr_c++;
 	}
 	else if (tab[data->perso->position_y - 2][data->perso->position_x] == 'C')
 		tab[data->perso->position_y - 1][data->perso->position_x] = '3';
