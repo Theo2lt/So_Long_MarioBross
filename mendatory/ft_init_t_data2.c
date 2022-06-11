@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:08:08 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/10 17:35:05 by tliot            ###   ########.fr       */
+/*   Updated: 2022/06/11 16:05:21 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ t_data	*ft_init_all_rendu(t_data *data, t_map *map)
 	data->rendu = malloc(sizeof(t_img));
 	if (!data->rendu)
 		return (NULL);
+	data->rendu->img = NULL;
 	data->rendu->img = mlx_new_image(data->win->mlx,
 			(map->size_x) * 32, (map->size_y) * 32);
+	if (!data->rendu->img)
+		ft_exit(data);
 	data->rendu->addr = mlx_get_data_addr(data->rendu->img,
 			&data->rendu->bits_per_pixel,
 			&data->rendu->line_length, &data->rendu->endian);

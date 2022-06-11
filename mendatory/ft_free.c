@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:27:51 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/10 17:34:36 by tliot            ###   ########.fr       */
+/*   Updated: 2022/06/11 15:48:54 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	ft_free_data(t_data *data)
 		ft_free(data->tab);
 	if (data->map)
 		free(data->map);
-	if (data->troupe_piranha)
-		ft_lst_clean_piranaha(data);
 	if (data)
 		free(data);
 }

@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:18:12 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/10 17:34:47 by tliot            ###   ########.fr       */
+/*   Updated: 2022/06/11 16:05:21 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_data	*ft_init_data_mlx_win(t_data *data, t_map *map)
 	if (!data->win)
 		return (NULL);
 	data->win->mlx = mlx_init();
+	if (!data->win->mlx)
+		return (NULL);
 	data->win->mlx_win = mlx_new_window(data->win->mlx,
 			(map->size_x) * 32, (map->size_y) * 32, "MARIO LT");
 	return (data);

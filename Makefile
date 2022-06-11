@@ -6,7 +6,7 @@
 #    By: tliot <tliot@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 21:22:24 by tliot             #+#    #+#              #
-#    Updated: 2022/06/11 14:51:46 by tliot            ###   ########.fr        #
+#    Updated: 2022/06/11 16:20:46 by tliot            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ OBJS			=	$(SRCS:%.c=%.o)
 OBJSBONUS		=	$(SRCSBONUS:%.c=%.o)
 NAME			=	so_long
 CC				=	gcc
-CFLAGS			=	-g -Wall -Wextra -Werror 
+CFLAGS			=	-Wall -Wextra -Werror -g3
 #-Imlx -Imlx_linux -lXext -lX11 -lm -lz
 
 RM				=	rm -f

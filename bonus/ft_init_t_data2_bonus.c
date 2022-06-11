@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 17:08:08 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/11 13:41:52 by tliot            ###   ########.fr       */
+/*   Updated: 2022/06/11 15:51:57 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ t_data	*ft_init_affichage(char **tab, t_map *map)
 	data->perso->deplacement = 0;
 	data->tab = tab;
 	data->map = map;
+	data->troupe_piranha = NULL;
 	ft_init_all_sprite(data);
 	ft_init_all_img_addr(data);
-	data->troupe_piranha = NULL;
 	ft_init_piranha_position(tab, data);
 	return (data);
 }

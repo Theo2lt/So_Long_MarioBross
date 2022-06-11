@@ -6,7 +6,7 @@
 /*   By: tliot <tliot@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 17:01:11 by tliot             #+#    #+#             */
-/*   Updated: 2022/06/11 13:50:03 by tliot            ###   ########.fr       */
+/*   Updated: 2022/06/11 16:22:17 by tliot            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	nullfunc(t_data *data)
 	mlx_put_image_to_window(data->win->mlx, data->win->mlx_win,
 		data->rendu->img, 0, 0);
 	ft_my_mlx_string_put(data);
-	sleep += 100000;
 	return (0);
 }
 
