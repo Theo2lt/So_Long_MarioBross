@@ -3,57 +3,94 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: user <user@student.42.fr>                  +#+  +:+       +#+         #
+#    By: tliot <tliot@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 21:22:24 by tliot             #+#    #+#              #
-#    Updated: 2022/05/03 12:17:32 by user             ###   ########.fr        #
+#    Updated: 2022/06/11 14:51:46 by tliot            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC_DIR =       .
+SRC_DIR =       mendatory
+SRC_DIRBONUS =       bonus
+
+SRCS	=	mendatory/ft_affichage2.c          \
+			mendatory/ft_affichage3.c          \
+			mendatory/ft_affichage4.c          \
+			mendatory/ft_affichage.c           \
+			mendatory/ft_change_block.c        \
+			mendatory/ft_exit.c                \
+			mendatory/ft_free.c                \
+			mendatory/ft_get_next_line.c       \
+			mendatory/ft_init_t_data2.c        \
+			mendatory/ft_init_t_data3.c        \
+			mendatory/ft_init_t_data4.c        \
+			mendatory/ft_init_t_data.c         \
+			mendatory/ft_itoa.c                \
+			mendatory/ft_lst.c                 \
+			mendatory/ft_mouve_perso.c         \
+			mendatory/ft_my_mxl_img_put.c      \
+			mendatory/ft_my_string_put.c       \
+			mendatory/ft_parsing.c             \
+			mendatory/ft_strchr.c              \
+			mendatory/ft_verif_arg.c           \
+			mendatory/ft_verif_item.c          \
+			mendatory/ft_verif_map.c           \
+			mendatory/ft_verif_name_map.c      \
+			mendatory/main.c                   
+
+SRCSBONUS = bonus/ft_affichage2_bonus.c          \
+			bonus/ft_affichage3_bonus.c          \
+			bonus/ft_affichage4_bonus.c          \
+			bonus/ft_affichage_bonus.c           \
+			bonus/ft_change_block_bonus.c        \
+			bonus/ft_exit_bonus.c                \
+			bonus/ft_free_bonus.c                \
+			bonus/ft_get_next_line_bonus.c       \
+			bonus/ft_init_t_data2_bonus.c        \
+			bonus/ft_init_t_data3_bonus.c        \
+			bonus/ft_init_t_data4_bonus.c        \
+			bonus/ft_init_t_data_bonus.c         \
+			bonus/ft_itoa_bonus.c                \
+			bonus/ft_lst_bonus.c                 \
+			bonus/ft_mouve_perso_bonus.c         \
+			bonus/ft_my_mxl_img_put_bonus.c      \
+			bonus/ft_my_string_put_bonus.c       \
+			bonus/ft_parsing_bonus.c             \
+			bonus/ft_strchr_bonus.c              \
+			bonus/ft_verif_arg_bonus.c           \
+			bonus/ft_verif_item_bonus.c          \
+			bonus/ft_verif_map_bonus.c           \
+			bonus/ft_verif_name_map_bonus.c      \
+			bonus/main_bonus.c                   
 
 
-SRCS	        =   ft_parsing.c \
-					ft_verif_map.c \
-					ft_free_tab.c \
-					ft_strchr.c \
-					ft_verif_name_map.c \
-					ft_get_next_line.c \
-					ft_verif_arg.c \
-					main.c \
-					ft_lst.c \
-					ft_verif_item.c \
-
-
-
-
-OBJS			=	$(addprefix $(SRC_DIR)/, $(SRCS:%.c=%.o))
-
+OBJS			=	$(SRCS:%.c=%.o)
+OBJSBONUS		=	$(SRCSBONUS:%.c=%.o)
 NAME			=	so_long
-
 CC				=	gcc
-
-CFLAGS			=	-Wall -Wextra -Werror -Imlx -Imlx_linux -lXext -lX11 -lm -lz
+CFLAGS			=	-g -Wall -Wextra -Werror 
+#-Imlx -Imlx_linux -lXext -lX11 -lm -lz
 
 RM				=	rm -f
 
-.c.o:
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
-
-$(NAME):	$(OBJS)
-	$(CC) $(CFLAGS) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz minilibx-linux/libmlx.a -o $(NAME) $(OBJS) 
-
-bonus:	$(OBJS2)
-		$(CC) $(CFLAGS) -o $(NAME2) $(OBJS2)
-
-
 all:		${NAME}
 
+.c.o:
+		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+		
+$(NAME):	$(OBJS)
+	$(CC) $(CFLAGS) $(OBJS)  minilibx-linux/libmlx_Linux.a -lXext -lX11 -I minilibx-linux/include/  -o $(NAME) 
+
+bonus: $(NAME)_bonus 
+
+$(NAME)_bonus:	$(OBJSBONUS)
+		$(CC) $(CFLAGS) $(OBJSBONUS)  minilibx-linux/libmlx_Linux.a -lXext -lX11 -I minilibx-linux/include/  -o $(NAME)_bonus
+
 clean:
-	${RM} ${OBJS} ${OBJS2}
+	${RM} ${OBJS} ${OBJSBONUS}
 
 fclean:		clean
-		${RM} ${NAME} ${NAME2}
+		${RM} ${NAME} ${NAME}_bonus
 
 re:			fclean all
 
